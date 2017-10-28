@@ -20,9 +20,9 @@ bool numberInArray(int valI, int valJ, Tuple array[], int seedsNum){
 }
 
 int main(int argc, char *argv[]) {
-    int M = atoi(argv[3]);
-    int N = atoi(argv[2]);
     int SEEDS_NUMBER = atoi(argv[1]);
+    int M = atoi(argv[2]);
+    int N = atoi(argv[3]);
     int voronoi[M][N]; // init
     time_t t;
     int i;
