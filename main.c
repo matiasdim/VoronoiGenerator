@@ -3,21 +3,15 @@
 #include <stdbool.h>
 #include <math.h>
 #include <time.h>
- 
-#define N 5 // matrix width
-#define M 5 // matrix height
-#define SEEDS_NUMBER 2 // matrix height
-// pending to figure out how to define the size with the above constants
-int voronoi[M][N]; // init
 
 typedef struct Tuple {
     int i;
     int j;
 } Tuple;
 
-bool numberInArray(int valI, int valJ, Tuple array[]){
+bool numberInArray(int valI, int valJ, Tuple array[], int seedsNum){
     int i;
-    for(i= 0; i<SEEDS_NUMBER; i++){
+    for(i= 0; i<seedsNum; i++){
         if (valI == array[i].i && valJ == array[i].j){
             return true;
         }
@@ -25,9 +19,12 @@ bool numberInArray(int valI, int valJ, Tuple array[]){
     return false;
 }
 
-int main() {
+int main(int argc, char *argv[]) {
+    int M = atoi(argv[3]);
+    int N = atoi(argv[2]);
+    int SEEDS_NUMBER = atoi(argv[1]);
+    int voronoi[M][N]; // init
     time_t t;
-
     int i;
     int j;
     int k;
@@ -36,11 +33,17 @@ int main() {
 
     // Random location for seeds
     srand((unsigned) time(&t));
-    Tuple randomSeeds[SEEDS_NUMBER] = {(0,0)};
+    Tuple randomSeeds[SEEDS_NUMBER];
+    for(i= 0; i<M; i++){
+        for(j= 0; j<N; j++){
+            voronoi[i][j] = 0;
+        }
+    }
+
     for(i= 0; i<SEEDS_NUMBER; i++){
         seed.i  = (rand() % M);
         seed.j =(rand() % N);
-        if (!numberInArray(seed.i, seed.j, randomSeeds)){
+        if (!numberInArray(seed.i, seed.j, randomSeeds, SEEDS_NUMBER)){
             randomSeeds[i] = seed;
             voronoi[seed.i][seed.j] = -1;
         }else{
@@ -69,7 +72,7 @@ int main() {
 
     for(i= 0; i<M; i++){
         for(j= 0; j<N; j++){
-            printf("%d \t", voronoi[i][j]);
+            printf("%d ", voronoi[i][j]);
         }
         printf("\n");
     }

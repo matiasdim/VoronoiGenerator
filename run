@@ -1,0 +1,12 @@
+#! /bin/bash
+
+HEIGHT=$3
+WIDTH=$2
+SEEDS=$1
+
+rm -rf main test
+gcc main.c -o main 
+./main $SEEDS $WIDTH $HEIGHT  > test
+./generate_image.py test $SEEDS $WIDTH $HEIGHT
+
+

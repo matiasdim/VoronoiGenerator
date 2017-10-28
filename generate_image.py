@@ -21,7 +21,7 @@ def main():
     for i in range(args.seeds):
         colors.append(
             (random.randint(0,255), random.randint(0,255), random.randint(0,255)))
-    colors.append((0, 0, 255))
+    colors.append((255, 255, 255))
 
     with open('test') as file:
         for i, line in enumerate(file):
