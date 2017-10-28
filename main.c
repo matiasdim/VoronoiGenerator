@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <math.h>
 #include <time.h>
+#include <sys/time.h>
 
 typedef struct Tuple {
     int i;
@@ -28,7 +29,6 @@ int main(int argc, char *argv[]) {
     int i;
     int j;
     int k;
-
     struct Tuple seed;
 
     // Random location for seeds
@@ -51,9 +51,14 @@ int main(int argc, char *argv[]) {
         }
     }
 
+
     double currentDistance = 0;
     double minDistance;
     int belongingSeed;
+    //Timing
+    struct timeval start, end;
+    double elapsedTime;
+    gettimeofday(&start, NULL);
     for(i= 0; i<M; i++){
         for(j= 0; j<N; j++){
             minDistance = INFINITY;
@@ -69,14 +74,15 @@ int main(int argc, char *argv[]) {
             }
         }
     }
-
+    gettimeofday(&end, NULL);
+    elapsedTime = (end.tv_sec - start.tv_sec) * 1000.0;
+    elapsedTime += (end.tv_usec - start.tv_usec) / 1000.0;
+    fprintf(stderr, "Elapsed %f\n ", elapsedTime);
     for(i= 0; i<M; i++){
         for(j= 0; j<N; j++){
             printf("%d ", voronoi[i][j]);
         }
         printf("\n");
     }
-
-
     return 0;
 }
